@@ -1,0 +1,187 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+html, body, #root {
+    height: 100%;
+}
+
+#root {
+    background-color: #1f1f1f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-container {
+    width: 50rem;
+    aspect-ratio: 3/2;
+    max-width: 80%;
+    max-height: 95%;
+    background-color: #dddddd;
+    border-radius: 0.5rem;
+    padding: 2rem;
+    display: grid;
+    grid-template-areas: 
+    't t t'
+    'p . b'
+    'o o o';
+    justify-content: center;
+    align-items: end;
+    gap: 2rem;
+    & .title-word {
+        grid-area: t;
+        width: 100%;
+        height: 3rem;
+        text-align: center;
+        font-size: 3rem;
+        font-weight: 900;
+        color: cornflowerblue;
+        font-family: cursive, arial, sans-serif;
+        -webkit-text-stroke: black 2px;        
+    }
+    & .hand {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        user-select: none;
+        & .emoji {
+            font-size: 8rem;
+            line-height: 8rem;
+            transform-origin: bottom;
+            position: relative;
+        }
+        & .name {
+            background-color: rgba(100, 149, 237, 70%);            
+            color: white;
+            width: 5rem;
+            padding: 0.3rem;
+            border-radius: 0.5rem;
+            text-align: center;
+        }
+    }
+    & .player {
+        grid-area: p;
+        & .animate {
+            transform-origin: 30% 70%;
+            animation: moveHandPlayer 0.6s linear;
+            animation-iteration-count: 3;
+        }
+        & .emoji {
+            transform-origin: center;
+            transform: rotate(90deg) scale(-1, 1);
+        }
+        & .win::after, .draw::after, .lose::after {
+            transform: scale(-1, 1) rotate(-120deg);        
+            left: 0;
+        }
+    }
+    & .bot {
+        grid-area: b;
+        & .animate {
+            transform-origin: 70% 70%;
+            animation: moveHandBot 0.6s linear;
+            animation-iteration-count: 3;
+        }
+        & .emoji {
+            transform-origin: center;
+            transform: rotate(-90deg);
+        }
+        & .win::after, .draw::after, .lose::after {
+            transform:  rotate(120deg);        
+            left: 0;
+        }
+    }
+    & .win::after, .draw::after, .lose::after {
+        position: absolute;
+        font-size: 3rem;
+        font-weight: 700;
+        top: 0;
+        color: cornflowerblue;
+        font-family: cursive, arial, sans-serif;
+        -webkit-text-stroke: black 2px;
+    } 
+    & .win::after {
+        content: "Venceu!";
+        animation: textAnimation 0.5s infinite alternate linear;
+    }
+    & .draw::after {
+        content: "Empate!";
+        animation: textAnimation 0.5s infinite alternate linear;
+    }
+    & .lose::after {
+        content: "Perdeu!";
+        animation: textAnimation 0.5s infinite alternate linear;
+    }
+    & .emoji {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;            
+        aspect-ratio: 1/1;       
+    }
+    & .emoji-container {
+        width: 10rem;
+        aspect-ratio: 1/1;
+        display: flex;
+        justify-content: center;
+        align-items: center;        
+    }
+    & .options {
+        grid-area: o;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        & .opt-button {
+            width: 4rem;
+            aspect-ratio: 1/1;
+            border-radius: 50%;
+            border: 0.1rem solid grey;
+            font-size: 2rem;            
+            &:hover {
+                cursor: pointer;
+                border: 0.2rem solid black;
+            }
+        }
+    }
+}
+
+@keyframes moveHandBot {
+    0% {       
+        transform: rotate(0deg);
+    }
+    50% {        
+        transform: rotate(90deg);
+    }
+    100% {       
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes moveHandPlayer {
+    0% {
+        transform: rotate(0);
+    }
+    50% {        
+        transform: rotate(-90deg);
+    }
+    100% {       
+        transform: rotate(0);
+    }
+}
+
+@keyframes textAnimation {
+    0% {
+        font-size: 3rem;
+    }
+    100% {
+        font-size: 4rem;
+    }
+}
